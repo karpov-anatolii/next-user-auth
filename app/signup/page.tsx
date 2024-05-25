@@ -133,7 +133,7 @@ const Signup = () => {
                     type="submit"
                     className="bg-[#5D7DF3] text-white text-lg w-full px-8 py-3 rounded-md uppercase font-semibold"
                   >
-                    {loading ? "Processing" : " Register"}
+                    {loading ? "Processing..." : " Register"}
                   </button>
                 </div>
                 <div className="flex justify-center w-full items-center gap-3 py-3">

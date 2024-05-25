@@ -2,9 +2,11 @@
 
 import { Mail, Lock } from "lucide-react";
 import Image from "next/image";
-import bg from "../public/bg3.png";
-import logo from "../public/logo.png";
-import google from "../public/google2.svg";
+import bg from "@/public/assets/images/bg3.png";
+import logo from "@/public/assets/images/logo.png";
+import google from "@/public/assets/images/google2.svg";
+import github from "@/public/assets/images/github.png";
+
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { signIn } from "next-auth/react";
@@ -17,6 +19,7 @@ const Login = () => {
     email: "",
     password: "",
   });
+  // router.push("/dashboard");
 
   const handleInputChange = (event: any) => {
     const { name, value } = event.target;
@@ -28,6 +31,8 @@ const Login = () => {
     setLoading(true);
     try {
       if (!user.email || !user.password) {
+        console.log("please fill all the fields");
+
         setError("please fill all the fields");
         return;
       }
@@ -47,9 +52,11 @@ const Login = () => {
         console.log(res);
         setError("error");
       }
+      router.push("/dashboard");
+
+      console.log("res===>", res);
 
       setError("");
-      router.push("/dashboard");
     } catch (error) {
       console.log(error);
       setError("");
@@ -123,6 +130,7 @@ const Login = () => {
                 </div>
 
                 <div className="grid place-items-center w-full mx-auto pt-7">
+                  {error && <p className="py-6 text-lg">{error}</p>}
                   <button
                     type="submit"
                     className="bg-[#5D7DF3] text-white text-lg w-full px-8 py-3 rounded-md uppercase font-semibold"
@@ -135,15 +143,28 @@ const Login = () => {
                   <div className="mt-3">or</div>
                   <div className="border-b border-gray-800 py-2 w-full px-6" />
                 </div>
-                <div className="flex justify-center items-center w-full gap-8 pb-8">
-
-                  <div onClick={()=>signIn("google")} className="rounded px-6 py-2 shadow cursor-pointer bg-gray-50 grid place-items-center mx-auto mb-4">
+                <div className="flex flex-col justify-center items-center w-full gap-8 pb-8">
+                  <div
+                    onClick={() => signIn("google")}
+                    className="rounded px-6 py-2 shadow cursor-pointer bg-gray-50 grid place-items-center mx-auto mb-4"
+                  >
                     <Image src={google} alt="bg" width={100} height={100} />
                   </div>{" "}
-
+                  <div
+                    onClick={() => signIn("github")}
+                    className="rounded px-6 py-2 shadow cursor-pointer bg-gray-50 grid place-items-center mx-auto mb-4 "
+                  >
+                    <Image
+                      src={github}
+                      alt="bg"
+                      width={100}
+                      height={100}
+                      className="filter invert"
+                    />
+                  </div>{" "}
                 </div>
                 <div className="text-lg text-slate-900 font-medium">
-                  <span>Don't have an account?</span>
+                  <span>Don&apos;t have an account?</span>
                   <a
                     href="/signup"
                     className="text-[#5D7DF3] pl-3 hover:underline"
